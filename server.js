@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const postsRouter = require('./routers/posts');
 
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
     res.send('Server del mio blog')
 })
+
+app.use('/posts', postsRouter)
 
 const posts = [
 
@@ -44,13 +47,13 @@ const posts = [
 ];
 
 app.get('/bacheca', (req, res) => {
-    res.json(posts)
+    res.send(posts)
 })
 
 // Index
 
 app.get('/posts', (req, res) => {
-    res.send('Lista dei post')
+    res.json('Lista dei post')
 })
 
 // Show
