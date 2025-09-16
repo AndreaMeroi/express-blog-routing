@@ -1,42 +1,33 @@
 const express = require('express')
 const router = express.Router();
 
+const postsControllers = require('../controllers/postsControllers');
+
+
 // Index
 
-router.get('/', (req, res) => {
-    res.json('Lista dei post')
-})
+router.get('/', postsControllers.index);
 
 // Show
 
-router.get('/:id', (req, res) => {
-    res.send('Visualizza il post' + req.params.id)
-})
+router.get('/:id', postsControllers.show)
 
 // create
 
-router.post('/', (req, res) => {
-    res.send('creazione nuovo post')
-})
+router.post('/', postsControllers.store)
 
 // Update the whole post
 
-router.put('/:id', (req, res) => {
-    res.send('Modifica interamente il post' + req.params.id)
-})
+router.put('/:id', postsControllers.update)
 
 
 // Modify post
 
-router.patch('/:id', (req, res) => {
-    res.send('Modifica interamente il post' + req.params.id)
-})
+router.patch('/:id', postsControllers.modify)
 
 // Destroy
 
-router.delete('/:id', (req, res) => {
-    res.send('Cancellazione del post' + req.params.id)
-})
+router.delete('/:id', postsControllers.destroy)
 
 
 module.exports = router
