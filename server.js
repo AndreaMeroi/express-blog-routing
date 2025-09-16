@@ -3,12 +3,30 @@ const app = express();
 const port = 8000;
 const postsRouter = require('./routers/posts');
 
-// registro il .... 
+//importo logtime
+
+const logtime = require('./middleware/logtime');
+
+// importo notfound 
+
+const notFound = require('./middleware/notFound');
+
+// importo errorsHandler 
+
+const errorsHandler = require('./middleware/serverError')
+
+
+// registro l'asset statico (registrazione middleware a livello globale)
 
 app.use(express.static('public'));
 
-// registro il body-parser per 'application/json'
+// registro il body-parser per 'application/json' (registrazione middleware a livello globale)
+
 app.use(express.json());
+
+// registro logtime (registrazione middleware a livello globale)
+
+app.use(logtime)
 
 
 app.get('/', (req, res) => {
@@ -65,3 +83,11 @@ app.delete('/posts/:id', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`)
 })
+
+// registro errorsHandler (registrazione middleware a livello globale)
+
+app.use(errorsHandler)
+
+// registro notFound (registrazione middleware a livello globale)
+
+app.use(notFound)
